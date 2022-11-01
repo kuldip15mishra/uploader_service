@@ -1,4 +1,4 @@
-from asyncio.windows_events import NULL
+
 from flask import Flask
 import re
 from datetime import datetime
@@ -6,8 +6,8 @@ import requests
 import requests
 from requests.exceptions import HTTPError
 
-main = Flask(__name__)
-from . import main
+app = Flask(__name__)
+
 
 URL = 'https://www.googleapis.com/youtube/v3/'
 # Enter API KEY here
@@ -15,11 +15,11 @@ API_KEY = 'AIzaSyCCWYchGheAuT1Bf_It5jvY8g5hkAP9zeI'
 
 
 
-@main.route("/")
+@app.route("/")
 def home():
     return "Hello, Flask!"
 
-@main.route("/hello")
+@app.route("/hello")
 def hello_there():
     data={
         'key': "",
@@ -32,7 +32,7 @@ def hello_there():
     content = saveComments(data)
     return content
 
-@main.route("/fetchcomments/<video_id>")
+@app.route("/fetchcomments/<video_id>")
 def print_video_comment( video_id, no=1, next_page_token=None):
    
     content=[]
@@ -78,7 +78,7 @@ def print_video_comment( video_id, no=1, next_page_token=None):
     #     # delivery_report(content)
     # return content
 
-@main.route("/test")
+@app.route("/test")
 def print_video_reply(no, cno, video_id, next_page_token, id,content):
     params = {
         'key': API_KEY,
@@ -125,4 +125,4 @@ def saveComments(data):
     
 
 if __name__ == "__main__":
-    main.run(debug=True)
+    app.run(debug=True)

@@ -1,7 +1,7 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.8-slim
 
-EXPOSE 5000
+EXPOSE 8080
 
 ENV key=dev
 
@@ -26,7 +26,6 @@ RUN  python -m pip install -r requirements.txt
   RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
   USER appuser
 
-# # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
- CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+# # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-deb
 
-
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]

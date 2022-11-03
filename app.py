@@ -5,9 +5,10 @@ from datetime import datetime
 import requests
 import requests
 from requests.exceptions import HTTPError
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 URL = 'https://www.googleapis.com/youtube/v3/'
 # Enter API KEY here

@@ -64,6 +64,8 @@ def print_video_comment( video_id, no=1, next_page_token=None):
         # fp.write('%s\n{:0=4}\t{}\t{}\t{}\t{}'.format(
         #     no, text.replace('\n', ' '), like_cnt, user_name, reply_cnt))
         content.append(comment_info)
+        comment_info['channelid']=video_id
+        saveComments(comment_info)
         # print(comment_info)
       
         # print('{:0=4}\t{}\t{}\t{}\t{}'.format(no, text.replace('\n', ' '), like_cnt, user_name, reply_cnt))
@@ -76,7 +78,7 @@ def print_video_comment( video_id, no=1, next_page_token=None):
         print_video_comment(video_id,no,  resource["nextPageToken"])
     # if content:
     #     # delivery_report(content)
-    # return content
+    return "success"
 
 @app.route("/test")
 def print_video_reply(no, cno, video_id, next_page_token, id,content):
@@ -95,16 +97,10 @@ def print_video_reply(no, cno, video_id, next_page_token, id,content):
     resource = response.json()
 
     for comment_info in resource['items']:
-        # comment
-        text = comment_info['snippet']['textDisplay']
-        # Good number
-        like_cnt = comment_info['snippet']['likeCount']
-        # username
-        user_name = comment_info['snippet']['authorDisplayName']
-        # fp.write('%s\n{:0=4}-{:0=3}\t{}\t{}\t{}'.format(no, cno,
-        #          text.replace('\n', ' '), like_cnt, user_name))
-        # print('{:0=4}-{:0=3}\t{}\t{}\t{}'.format(no, cno, text.replace('\n', ' '), like_cnt, user_name))
+      
+        comment_info['channelid']=video_id
         content.append(comment_info)
+        saveComments(comment_info)
         cno = cno + 1
       
     if 'nextPageToken' in resource:

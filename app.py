@@ -109,7 +109,7 @@ def print_video_reply(no, cno, video_id, next_page_token, id,content):
 
 
 def saveComments(data):
-    url = "https://crudfirebase-x5p245odzq-uc.a.run.app/"
+    url = "https://youtubecrudmongo-x5p245odzq-uc.a.run.app"
     try:
         response = requests.post(url, json=data)
     except HTTPError as http_err:
@@ -119,7 +119,18 @@ def saveComments(data):
     else:
         # print('Success!')
         return response.text
-    
+
+def saveComments(id):
+    url = "https://youtubecrudmongo-x5p245odzq-uc.a.run.app"
+    try:
+        response = requests.post(url, json=data)
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')  # Python 3.6
+    except Exception as err:
+        print(f'Other error occurred: {err}')  # Python 3.6
+    else:
+        # print('Success!')
+        return response.text    
 
 if __name__ == "__main__":
     app.run(debug=True)

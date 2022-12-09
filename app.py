@@ -1,12 +1,11 @@
 
 from flask import Flask
-import re
 from datetime import datetime
 import requests
 import requests
 from publisher import  *
 from requests.exceptions import HTTPError
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 CORS(app)

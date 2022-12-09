@@ -1,5 +1,4 @@
-import time
-import json
+
 import certifi
 from uuid import uuid4
 from confluent_kafka import Producer, KafkaException

@@ -68,7 +68,7 @@ def print_video_comment( video_id, no=1, next_page_token=None):
         content.append(comment_info)
         comment_info['channelid']=video_id
         saveComments(comment_info)
-        # print(comment_info)
+        
       
         # print('{:0=4}\t{}\t{}\t{}\t{}'.format(no, text.replace('\n', ' '), like_cnt, user_name, reply_cnt))
         if reply_cnt > 0:
@@ -112,26 +112,10 @@ def print_video_reply(no, cno, video_id, next_page_token, id,content):
 def saveComments(data):
     url = "https://youtubecrudmongo-x5p245odzq-uc.a.run.app"
     try:
-        response = requests.post(url, json=data)
-    except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')  # Python 3.6
+        addCommentsToKafka(str(data).encode())
     except Exception as err:
         print(f'Other error occurred: {err}')  # Python 3.6
-    else:
-        # print('Success!')
-        return response.text
-
-def saveComments(id):
-    url = "https://youtubecrudmongo-x5p245odzq-uc.a.run.app"
-    try:
-        response = requests.post(url, json=data)
-    except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')  # Python 3.6
-    except Exception as err:
-        print(f'Other error occurred: {err}')  # Python 3.6
-    else:
-        # print('Success!')
-        return response.text    
+   
 
 if __name__ == "__main__":
     app.run(debug=True)

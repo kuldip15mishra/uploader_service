@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 import requests
 import requests
+from publisher import  *
 from requests.exceptions import HTTPError
 from flask_cors import CORS
 
@@ -23,15 +24,15 @@ def home():
 @app.route("/hello")
 def hello_there():
     data={
-        'key': "",
+        'key': "128172",
         'part': 'snippet',
         'videoId': "video_id",
         'order': 'relevance',
         'textFormat': 'plaintext',
         'maxResults': 100,
     }
-    content = saveComments(data)
-    return content
+    addCommentsToKafka(str(data).encode())
+    return "success"
 
 @app.route("/fetchcomments/<video_id>")
 def print_video_comment( video_id, no=1, next_page_token=None):
